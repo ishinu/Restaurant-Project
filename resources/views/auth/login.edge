@@ -1,0 +1,41 @@
+@layout('layouts.main')
+
+@section('title')
+Login Page
+@endsection
+
+@section('content')
+ 
+    <h1 class="text-center">Login Platform</h1>
+
+    @if(flashMessage('loginError'))
+        <span>{{ flashMessage('loginError') }}</span>
+    @endif
+
+    <form action="{{ route('UserController.login') }}" method="POST">
+        {{ csrfField() }}
+
+        <div class="form-group">
+            <label for="email">E-mail :</label>
+            <input type="email" name="email" value="{{ old('email','') }}">
+            @if(hasErrorFor('email'))
+                <span>
+                    {{ getErrorFor('email') }}
+                </span>
+            @endif
+        </div>
+
+        <div class="form-group">
+            <label for="password">Password :</label>
+            <input type="password" name="password" value="{{old('password','')}}">
+            @if(hasErrorFor('password'))
+                <span>
+                    {{ getErrorFor('password') }}
+                </span>
+            @endif
+        </div>    
+
+        <button type="submit" class="btn btn-success">Login Now</button>
+    </form>
+
+@endsection

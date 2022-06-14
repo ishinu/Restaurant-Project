@@ -1,0 +1,55 @@
+@layout('layouts.main')
+
+@section('title')
+Edit your Dish 
+@endsection
+
+@section('extracss')
+{{ style('formsignup.css') }}
+{{ style('style.css') }}
+@endsection
+
+@section('content')
+
+<h1 class="text-center">Edit your Dish</h1>
+
+@if(flashMessage('message'))
+    <span>{{ flashMessage('message') }}</span>
+@endif
+
+<form action="{{ route('DishController.update',{ id: dish.id }) }}" method="POST">
+    {{ csrfField() }}
+
+    <div class="form-group">
+        <label for="title"><b>Dish Title :</b></label>
+        <input type="text" name="title" value="{{ dish.title }}">
+        @if(hasErrorFor('title'))
+            <span>
+                {{ getErrorFor('title') }}
+            </span>
+        @endif
+    </div>
+
+    <div class="form-group">
+        <label for="link"><b>Dish URL :</b></label>
+        <input type="text" name="link" value="{{ dish.link }}">
+        @if(hasErrorFor('link'))
+            <span>
+                {{ getErrorFor('link') }}
+            </span>
+        @endif
+    </div>
+
+    <div class="form-group">
+        <label for="description"><b>Description :</b></label>
+        <input type="text" name="descripton" value="{{ dish.description }}">
+        @if(hasErrorFor('description'))
+            <span>
+                {{ getErrorFor('description') }}
+            </span>
+        @endif
+    </div>
+
+    <button type="submit" class="btn btn-info">Update your dish</button><br>
+</form>
+@endsection
